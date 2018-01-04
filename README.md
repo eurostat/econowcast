@@ -44,5 +44,5 @@ _Publications Office of the European Union_, doi:[10.2785/461700](http://dx.doi.
 _Publications Office of the European Union_, doi:[10.2785/360587](http://dx.doi.org/10.2785/360587).
 
 * G.L. Mazzi, F. Moauro, R. Ruggeri Cannata (2016): 
-[**Advances in econometric tools to complement official statistics in the field of Principal European Economic Indicators**]
+[**Advances in econometric tools to complement official statistics in the field of Principal European Economic Indicators**](http://ec.europa.eu/eurostat/documents/3888793/7579703/KS-TC-16-013-EN-N.pdf/21b94a6c-55ba-4d3a-af52-01617bbe4310)
 doi:[10.2785/397407](http://dx.doi.org/10.2785/397407).
