@@ -29,7 +29,7 @@ The source code is organised in 4 distinct folders:
 * [**_model/_**](model): Relevant econometric modelling techniques for Big Data have been identified and some implementations are made available. A particular attention is set ipon Bayesian ones, _e.g._ the possibility of  using Bayesian panel VAR models, quantile regression model and expectile regression models for dealing with Big Data.
 * [**_nowcast/_**](nowcast): Modelling strategies for nowcasting/early estimates purposes taking into account various Big data characteristics have been elaborated. Scripts that operate some empirical test on possible timeliness gains when using _Google Trends_, other easily accessible big data and macroeconomic and financial variables are provided. Accuracy gains through improving the timeliness of the selected variables at the beginning, middle and end of the reference period together with the associated accuracy loss are also investigated.
 
-The results presented in the various publications reffered [below](#References) can be reproduced.
+The results presented in the various publications referred [below](#References) can be reproduced.
 For that purpose, the necessary raw (as well as the output data) are made available to the user in the [**_data/_**](data) folder.
 Further (narrative) description of the various functions/scripts is also provided in this [document](docs/econowcast-code_description.pdf), located in the [**_docs/_**](docs) folder.
 
