@@ -1,13 +1,13 @@
 econowcast
 ==========
 
-Tools for Big Data econometrics nowcasting and early estimates.
+Experimental tools for Big Data econometrics nowcasting and early estimates.
 ---
 
 **About**
 
 The code source files provided herein will enable you to reproduce the experiments 
-on Big Data econometrics nowcasting and early estimates presented in _Eurostat_ Handbook on Rapid Estimates
+on Big Data econometrics nowcasting and early estimates presented in _Eurostat_ **Handbook on Rapid Estimates**
 (_cite this source code or the reference's doi: [10.2785/488740](http://dx.doi.org/10.2785/488740)_).
 Further details are also available in the other associated working papers (see 
 Kapetanios _et al._'s publications [below](#References)).
@@ -23,8 +23,11 @@ Kapetanios _et al._'s publications [below](#References)).
 
 **Description**
 
+The source code is organised in 4 distinct folders:
+* [extract](extract)
 
-**<a name="References"></a>References**
+
+**<a name="References"></a>References** 
 
 * G.Kapetanios, M.Marcellino, F.Papailias (2017): 
 **Guidance and recommendations on the use of Big data for macroeconomic nowcasting** in
@@ -44,5 +47,5 @@ _Publications Office of the European Union_, doi:[10.2785/461700](http://dx.doi.
 _Publications Office of the European Union_, doi:[10.2785/360587](http://dx.doi.org/10.2785/360587).
 
 * G.L. Mazzi, F. Moauro, R. Ruggeri Cannata (2016): 
-[**Advances in econometric tools to complement official statistics in the field of Principal European Economic Indicators**](http://ec.europa.eu/eurostat/documents/3888793/7579703/KS-TC-16-013-EN-N.pdf/21b94a6c-55ba-4d3a-af52-01617bbe4310)
-doi:[10.2785/397407](http://dx.doi.org/10.2785/397407).
+[**Advances in econometric tools to complement official statistics in the field of Principal European Economic Indicators**](http://ec.europa.eu/eurostat/documents/3888793/7579703/KS-TC-16-013-EN-N.pdf/21b94a6c-55ba-4d3a-af52-01617bbe4310),
+_Publications Office of the European Union_, doi:[10.2785/397407](http://dx.doi.org/10.2785/397407).
