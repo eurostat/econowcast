@@ -38,7 +38,7 @@ of  using Bayesian panel VAR models, quantile regression model and expectile reg
 with Big Data.
 * [_nowcast_](nowcast): Modelling strategies for nowcasting/early estimates purposes taking into account 
 various Big data characteristics have been elaborated. Scripts that operate some empirical test on possible 
-timeliness gains when using Google Trends, other easily accessible big data and macroeconomic and financial 
+timeliness gains when using _Google Trends_, other easily accessible big data and macroeconomic and financial 
 variables are provided. Accuracy gains through improving the timeliness of the selected variables at the 
 beginning, middle and end of the reference period together with the associated accuracy loss are also 
 investigated.
