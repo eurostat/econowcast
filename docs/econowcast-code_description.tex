@@ -24,6 +24,8 @@
 \usepackage{listings}
 \usepackage[T1]{fontenc}
 
+\usepackage{hyperref}
+
 \setcounter{MaxMatrixCols}{10}
 %TCIDATA{OutputFilter=Latex.dll}
 %TCIDATA{Version=5.50.0.2960}
@@ -39,8 +41,8 @@
 \addtocounter{page}{-1}
 \pagestyle{fancy}
 \fancyhf{}
-\rhead{European Commission Eurostat}
-\lhead{\includegraphics[height=1cm, keepaspectratio=true]{E://Dropbox/BD2/GOPA-logo.png}}
+\rhead{European Commission \textendash{} Eurostat}
+\lhead{}
 \rfoot{\thepage}
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
@@ -55,29 +57,29 @@
 \renewcommand{\lstlistingname}{Code}
 \renewcommand{\lstlistlistingname}{List of \lstlistingname s}
 
-\input{tcilatex}
+% \input{tcilatex}
 
 \begin{document}
 
-\title{\textbf{Big Data Econometrics}\\
-\textbf{Nowcasting and Early Estimates}\\
-\textbf{Task 10: ``Big data handling tool developed as R package including
-supporting user documentation for deployment"}}
+\title{Big Data Econometrics Nowcasting\\
+and Early Estimates\\
+\textbf{Big data handling tool \textendash{}  Source code description}}
 \author{George Kapetanios\thanks{%
 kapetaniosgeorge@gmail.com} \and Massimiliano Marcellino\thanks{%
 massimiliano.marcellino@unibocconi.it} \and Fotis Papailias\thanks{%
 fotis.papailias@kcl.ac.uk; fotis.papailias@quantf.com} \and Katerina Petrova%
 \thanks{%
 katerina.petrova@st-andrews.ac.uk} }
+\date{} 
 \maketitle
 
 \begin{abstract}
 Functions and usability of the R code are discussed in the paper. Most of the
-code is originally written by the authors. In cases an R package is used, it
+code is originally written by the authors. Whenever a {\sf{R}} package is used, it
 is cited appropriately.
 
-\textit{Keywords: Big Data, Nowcasting, Density Forecasting, Density
-Evaluation, R Software.}
+\noindent \textit{Keywords: Big Data, Nowcasting, Density Forecasting, Density
+Evaluation, {\sf{R}} Software.}
 \end{abstract}
 
 \newpage
@@ -85,15 +87,15 @@ Evaluation, R Software.}
 \tableofcontents
 \newpage
 
-\section{Task 2}
+\section{Methods for feature extraction of Big Data sources to usable time-series for econometric modelling}
 
-\subsection{High Frequency Returns. File name: \color{blue}{HF.R}}
+\subsection{High frequency returns \textendash{} \color{blue}{\sf{HF.R}}}
 
-Here we use the \emph{``highfrequency"} R package, load edit and plot the
+Here we use the \sf{highfrequency} \sf{R} package, load edit and plot the
 necessary data as follows. We use various comments in order to explain the
 code and the inputs used in each function.
 
-\begin{lstlisting}[title=\textbf{Realised Volatility based on 5-min cleaned returns.}]
+\begin{lstlisting}[title=\textbf{Realised volatility based on 5-min cleaned returns.}]
 library("highfrequency")
 
 # Load data
@@ -111,7 +113,7 @@ RV <- rowSums(r^2)
 plot(RV, type="l", main="EUR/USD 5-min RV", xlab="Time", ylab="RV")
 \end{lstlisting}
 
-\subsection{Mobile Phone Data. File name: \color{blue}{MobPhone.R}}
+\subsection{Mobile phone data \textendash{} {\href{https://github.com/eurostat/econowcast/blob/master/extract/Mobile.R}{\color{blue}{\sf{Mobile.R}}}}}
 
 Here we load some .csv files which are also provided. The purpose of this
 code is to load the mobile phone activity data and aggregate it in terms of
@@ -121,7 +123,7 @@ explain the code and the inputs used in each function.
 Below we only demonstrate the part of the code which corresponds to Internet
 activity. The same procedure is replicated for call and SMS activity.
 
-\begin{lstlisting}[title=\textbf{Mobile Phone Data Aggregation and Plots.}]
+\begin{lstlisting}[title=\textbf{Mobile phone data aggregation and plots.}]
 # Load the necessary data.
 # Each file corresponds to a single day.
 days <- c("sms-call-internet-mi-2013-11-01.csv",
@@ -145,8 +147,7 @@ result1 <- array(NA, dim=c(24,5,NROW(days)))
 
 # We start with a loop.
 # j runs for each different day. In the above we have 7 days (NROW(days)).
-for(j in 1:NROW(days))
-{
+for(j in 1:NROW(days)) {
   # Load the data for day j.
   x <- read.csv(days[j], header=TRUE)
 
@@ -159,17 +160,17 @@ for(j in 1:NROW(days))
   rownames(totact) <- as.character(ud)
   colnames(totact) <- c("smsin","smsout","callin","callout","internet")
 
-  for(i in 1:NROW(ud))
-  {
+  for(i in 1:NROW(ud)) {
     it <- ud[i]
     choose <- which(x[,1]==it)
-	# Input. x which has the data and here we are looping across users.
+    # Input. x which has the data and here we are looping across users.
     totact[i,1] <- sum(x[it, 4], na.rm=TRUE)
     totact[i,2] <- sum(x[it, 5], na.rm=TRUE)
     totact[i,3] <- sum(x[it, 6], na.rm=TRUE)
     totact[i,4] <- sum(x[it, 7], na.rm=TRUE)
     totact[i,5] <- sum(x[it, 8], na.rm=TRUE)
   }
+  
   result1[,,j] <- totact
   cat("day ", j, " just done - still left ", NROW(days), "\n")
 }
@@ -178,26 +179,25 @@ for(j in 1:NROW(days))
 # First, generate the colours.
 cols <- rainbow(NROW(days), alpha = 1)
 
-# Calls Internet
-# Using the 5th column of array across days, "i", we can aggregate (sum) the internet activity.
+# Calls Internet. Using the 5th column of array across days, "i", we can aggregate 
+# (sum) the internet activity.
 i <- 1
-plot(result1[,5,i], type="l", xlab="Hours", ylab="Call", col=cols[i],
-     main="Total Internet Activity")
+plot(result1[,5,i], type="l", xlab="Hours", ylab="Call", col=cols[i], main="Total Internet Activity")
+
 # Add the remaining days looping across "i"
-for(i in 2:NROW(days))
-{
+for(i in 2:NROW(days)) {
   lines(result1[,5,i], col=cols[i])
 }
-legend("topleft", legend=days.l, col=cols, lty=rep(1, NROW(days)),
-       cex=0.6)
+
+legend("topleft", legend=days.l, col=cols, lty=rep(1, NROW(days)), cex=0.6)
 \end{lstlisting}
 
-\subsection{Web Prices. File name: \color{blue}{Prices.R}}
+\subsection{Web prices \textendash{} {\href{https://github.com/eurostat/econowcast/blob/master/extract/Prices.R}{\color{blue}{\sf{Prices.R}}}}}
 
 Here we load a .csv sample file with the appropriate data. We use various
 comments in order to explain the code and the inputs used in each function.
 
-\begin{lstlisting}[title=\textbf{Web Prices Aggregation and Plots.}]
+\begin{lstlisting}[title=\textbf{Web prices aggregation and plots.}]
 # Load the data
 x <- read.csv("arg-sample2.csv", header=TRUE)
 x <- as.matrix(x)
@@ -215,8 +215,7 @@ colnames(cats) <- uc
 rownames(cats) <- as.character(ud[2:NROW(ud)])
 
 # Start the loop across categories
-for(i in 1:NROW(uc))
-{
+for(i in 1:NROW(uc)) {
   xcat <- which(x[,3]==uc[i])
   xcat <- x[xcat,]
 
@@ -224,30 +223,27 @@ for(i in 1:NROW(uc))
   colnames(tmat) <- c(uid)
 
   # Create a doouble loop: (j) across id's and (jj) across dates
-  for(j in 1:NROW(uid))
-  {
+  for(j in 1:NROW(uid)) {
     xcat2 <- which(xcat[,2]==uid[j])
     xcat2 <- xcat[xcat2,]
 
-    for(jj in 1:NROW(ud))
-    {
+    for(jj in 1:NROW(ud)) {
       cw <- which(xcat2[,1]==ud[jj])
 
       if(NROW(cw)==0){
         tmat[jj,j] <- NA
-      }else{
+      } else {
         tmat[jj,j] <- xcat2[cw,4]
       }
     }
   }
-  # sure that the result is numeric
+  # ensure that the result is numeric
   tmat <- apply(tmat, 2, as.numeric)
 
   # Apply the methodology of Cavallo
   R <- tmat[2:NROW(tmat),]/tmat[1:(NROW(tmat)-1),]
   R <- apply(R, 1, prod, na.rm=TRUE)
   R <- R^(1/NCOL(tmat))
-
   cats[,i] <- R
 }
 
@@ -262,12 +258,12 @@ S <- I %*% w
 plot(as.Date(rownames(S)), S, type="l", main="Online Prices CPI", xlab="Time", ylab="Index")
 \end{lstlisting}
 
-\subsection{Google Trends. File name: \color{blue}{Google.R}}
+\subsection{Google Trends \textendash{} {\href{https://github.com/eurostat/econowcast/blob/master/extract/Google.R}{\color{blue}{\sf{Google.R}}}}}
 
-We use the \emph{``gtrendsR"} R library to download Google Trends in R.
-Currently, Google Trends are offered in monthly frequency.
+We use the \sf{gtrendsR} library to download \emph{Google Trends} in \sf{R}.
+Currently, \emph{Google Trends} are offered in monthly frequency.
 
-\begin{lstlisting}[title=\textbf{Google Trends Download}]
+\begin{lstlisting}[title=\textbf{Google Trends Download.}]
 # User Input
 kwd <- "gbp"         	# Keyword(s)
 reg <- "GB"             # Region
@@ -283,71 +279,67 @@ gt <- gtrends(kwd, reg, tsd, stp, cct)
 plot(gt)
 \end{lstlisting}
 
-\subsection{Twitter Data. File name: \color{blue}{Twitter.R}}
+\subsection{Twitter Data \textendash{} {\href{https://github.com/eurostat/econowcast/blob/master/extract/Twitter.R}{\color{blue}{\sf{Twitter.R}}}}}
 
-We use the \emph{``twitteR"} R library to download Twitter data in R.
+We use the \sf{twitteR} library to download Twitter data in \sf{R}.
 
-\begin{lstlisting}[title=\textbf{Twitter Data}]
-# Input: user defined keyword, below we use #gbpusd feed
-#        n: the number of nodes to download
+\begin{lstlisting}[title=\textbf{Twitter data fetching.}]
+# Inputs: 
+# user defined keyword, below we use #gbpusd feed
+# n: the number of nodes to download
 rdmTweets <- searchTwitter('#gbpusd', n=6500)
 \end{lstlisting}
 
-\subsection{Reuters written in Python}
+\subsection{Reuters data scraping \textendash{} {\href{https://github.com/eurostat/econowcast/blob/master/extract/Reuters.py}{\color{blue}{\sf{Reuters.py}}}}}
 
-Lines:
-
+We provide below with a stepwise description of the \sf{Python} code used for scraping Reuters data:
 \begin{itemize}
-\item 1-5: import packages: Beautifulsoup (HTML parsing), Scrapy (web
-crawling), Logging (recording errors), DateTime (parsing dates);
+\item L.~1-5: import packages:  \sf{Beautifulsoup} (HTML parsing), \sf{Scrapy} (web
+crawling), \sf{Logging} (recording errors), \sf{DateTime} (parsing dates);
 
-\item 7: open a log file to record 404 errors (page not found);
+\item L.~7: open a log file to record 404 errors (page not found);
 
-\item 11: create a name for the web scraper within the Scrapy CrawlSpider
+\item L.~10: create a name for the web scraper within the \sf{Scrapy CrawlSpider}
 class;
 
-\item 14-19: spider settings. Note that we disabled the ``AUTOTHROTTLE''
+\item L.~13-18: spider settings. Note that we disabled the \sf{AUTOTHROTTLE}
 setting and defined parameters manually to limit speed (one page download
 every 0.2 seconds) and contemporaneous requests (4).
 
-\item 21-26: define the input URLs for the web scraper. In a typical Scrapy
+\item L.~20-25: define the input URLs for the web scraper. In a typical \sf{Scrapy}
 crawler, one would only define a single starting page for the spider to move
 from, but we have already obtained the full list of pages to scrape in a
 text file. Therefore, we copy all the URLs in the file to a list and we pass
-each item to the ``parse'' function below.
+each item to the \sf{parse} function.
 
-\item 29-31: writes to a log file 404 errors;
+\item L.~28-30: writes to a log file 404 errors;
 
-\item 33: passes the HTML code of the page to the parsing library \texttt{%
-lxml};
+\item L.~32: passes the HTML code of the page to the parsing library \sf{lxml};
 
-\item 34-35: finds and isolates the permanent URL of the article;
+\item L.~33-34: finds and isolates the permanent URL of the article;
 
-\item 36-37: finds and isolates the alternate URL of the article;
+\item L.~35-36: finds and isolates the alternate URL of the article;
 
-\item 38-39: finds and isolates the article tags;
+\item L.~37-38: finds and isolates the article tags;
 
-\item 40-42: finds and isolates the publication date, headline and text of
+\item L.~39-41: finds and isolates the publication date, headline and text of
 the article;
 
-\item 43-51: removes the remaining HTML formatting for clean reading;
+\item L.~42-50: removes the remaining HTML formatting for clean reading;
 
-\item 52-53: parses the date and publication time to obtain a short-form
-date;
+\item L.~51-52: parses the date and publication time to obtain a short-form date;
 
-\item 55-57: writes the collected data to a CSV file.
+\item L.~54-56: writes the collected data to a CSV file.
 \end{itemize}
 
-\begin{lstlisting}[language=Python]
-
+\begin{lstlisting}[language=Python,title=\textbf{Reuters data scraping.}]
 from bs4 import BeautifulSoup
-import scrapy
 import logging
+import scrapy
 from scrapy.spiders import CrawlSpider
 from datetime import datetime
 
 logging.basicConfig(filename='log_50.log', level=logging.ERROR)
-
 
 class SpiderReuters (CrawlSpider):
     name = 'crawler_final_v21_tags_2'
@@ -397,52 +389,41 @@ class SpiderReuters (CrawlSpider):
             with open(r'/home/PATH/output_%s.csv' % page, 'a') as a:
                 a.write(date_object.strftime('%b %d %Y') + '|')
                 a.write(' '.join(all_text_uni.splitlines()).replace("  ", " "))
-
 \end{lstlisting}
 
-\subsubsection{Index construction}
-
+We also provide below with a stepwise description of the code used for the index construction:
 \begin{itemize}
-\item Lines 1-5: imports packages: time (algorithm timer), os (interfacing
-with operating system), re (regular expressions), csv (comma separatted
-values file reading and writing), pandas (time series statistical package);
+\item L.~1-5: imports packages: \sf{time} (algorithm timer), \sf{os} (interfacing
+with operating system), \sf{re} (regular expressions), \sf{csv} (comma separatted
+values file reading and writing), \sf{pandas} (time series statistical package);
 
-\item 7: starts timer;
+\item L.~7: starts timer;
 
-\item 9: initializes article counter;
+\item L.~9: initializes article counter;
 
-\item 11: dictionary of search terms (regular expressions);
+\item L.~11: dictionary of search terms (regular expressions);
 
-\item 13-17: creates a CSV file for articles with column headers 'date',
-'url', 'headline' and 'uncertainty';
+\item L.~13-15: creates a CSV file for articles with column headers 'date', 'url', 'headline' and 'uncertainty';
 
-\item 20-21: iterates through directories and obtains a list of files in
-each folder;
+\item L.~18-19: iterates through directories and obtains a list of files in each folder;
 
-\item 23-26: opens and counts each article;
+\item L.~21-23: opens and counts each article;
 
-\item 27-30: excludes articles containing the word ``SPORT'' among the tags;
+\item L.~24-27: excludes articles containing the word ``SPORT'' among the tags;
 
-\item 31-40: if the article body contains one of the terms in line 11, the
-date, url, tags and a ``1'' binary indicator are written to a csv file;
+\item L.~28-34: if the article body contains one of the terms in line 11, the date, url, tags and a ``1'' binary indicator are written to a csv file;
 
-\item 41-49: otherwise, date, url, tags and a ``0'' binary indicator are
-written to the same csv file;
+\item L.~35-40: otherwise, date, url, tags and a ``0'' binary indicator are written to the same csv file;
 
-\item 50-53: handles csvError exceptions (i.e. ignores files in folder that
-are not csv format);
+\item L.~41-44: handles csvError exceptions (i.e. ignores files in folder that are not csv format);
 
-\item 57-64: the tagged article list just obtained is loaded in a Pandas
-dataframe, dates are converted to a machine-readable format and daily
-frequencies are obtained and written to a csv file; the actual index is
-computed at line 62.
+\item 48-55: the tagged article list just obtained is loaded in a \sf{Pandas} dataframe, dates are converted to a machine-readable format and daily
+frequencies are obtained and written to a csv file; the actual index is computed at line 62.
 \end{itemize}
 
-\begin{lstlisting}[language=Python]
-import time
-import os
+\begin{lstlisting}[language=Python,title=\textbf{Index construction.}]
+import os, re, time
 import csv
-import re
 import pandas as pd
 
 start_time = time.time()
@@ -452,9 +433,7 @@ article_count = 0
 combined_semantic = "\\risk\\b|\\brisks\\b|\\brisks\\b"
 
 with open('art_list_RISK.csv', 'w', encoding='utf-8') as el:
-    spamwriter = csv.DictWriter(el, delimiter=',', fieldnames=['date', 'url', 'alt_url', 'tags', 'filename',
-                                                               'uncertainty'],
-                                lineterminator='\n')
+    spamwriter = csv.DictWriter(el, delimiter=',', fieldnames=['date', 'url', 'alt_url', 'tags', 'filename', 'uncertainty'], lineterminator='\n')
     spamwriter.writeheader()
 
 # search iteration
@@ -462,8 +441,7 @@ for root, dirs, filename in os.walk(r'/home/mattia/Desktop/All_articles'):
     for sub_file in filename:
         try:
             with open(os.path.join(root, sub_file), 'r', encoding="utf8", errors='ignore') as f:
-                spamreader = csv.DictReader(f, delimiter='|', fieldnames=['date', 'longdate', 'url', 'alt_url', 'header',
-                                                                          'article', 'tags'])
+                spamreader = csv.DictReader(f, delimiter='|', fieldnames=['date', 'longdate', 'url', 'alt_url', 'header', 'article', 'tags'])
                 article_count += 1
                 for row in spamreader:
                     if 'SPORT' in [x.strip() for x in row['tags'].split(',')]:
@@ -472,21 +450,15 @@ for root, dirs, filename in os.walk(r'/home/mattia/Desktop/All_articles'):
                 match = re.search(combined_semantic, row['article'], re.IGNORECASE)
                 if match:
                     print('progress', '%.3f' % ((article_count / 2803677) * 100), '%')
-                    line_with_dummy = dict(url=row['url'], alt_url=row['alt_url'], date=row['date'],
-                                           tags=row['tags'], filename=sub_file, uncertainty='1')
+                    line_with_dummy = dict(url=row['url'], alt_url=row['alt_url'], date=row['date'], tags=row['tags'], filename=sub_file, uncertainty='1')
                     with open('art_list_RISK.csv', 'a', encoding='UTF-8') as out:
-                        spamwriter_2 = csv.DictWriter(out, delimiter=',', fieldnames=['date', 'url', 'alt_url', 'tags',
-                                                                                      'filename', 'uncertainty'],
-                                                      lineterminator='\n')
+                        spamwriter_2 = csv.DictWriter(out, delimiter=',', fieldnames=['date', 'url', 'alt_url', 'tags', 'filename', 'uncertainty'], lineterminator='\n')
                         spamwriter_2.writerow(line_with_dummy)
                 else:
                     row.update({'uncertainty': '0'})
-                    line_with_zero = dict(url=row['url'], alt_url=row['alt_url'], date=row['date'],
-                                          tags=row['tags'], filename=sub_file, uncertainty='0')
+                    line_with_zero = dict(url=row['url'], alt_url=row['alt_url'], date=row['date'], tags=row['tags'], filename=sub_file, uncertainty='0')
                     with open('art_list_RISK.csv', 'a', encoding='UTF-8') as out:
-                        spamwriter_3 = csv.DictWriter(out, delimiter=',', fieldnames=['date', 'url', 'alt_url', 'tags',
-                                                                                      'filename', 'uncertainty'],
-                                                      lineterminator='\n')
+                        spamwriter_3 = csv.DictWriter(out, delimiter=',', fieldnames=['date', 'url', 'alt_url', 'tags', 'filename', 'uncertainty'], lineterminator='\n')
                         spamwriter_3.writerow(line_with_zero)
         except csv.Error:
             with open('csverror.txt', 'a', encoding='utf-8') as csverr:
@@ -509,49 +481,42 @@ elapsed_time = time.time() - start_time
 print(elapsed_time/60, 'minutes')
 \end{lstlisting}
 
-\section{Task 3. File name: \color{blue}{Outliers.R}}
+\section{Filtering techniques for high frequency data}
+
+\subsection{Outliers detection \textendash{} {\href{https://github.com/eurostat/econowcast/blob/master/filter/Outliers.R}{\color{blue}{\sf{Outliers.R}}}}}
 
 In this task we were mostly concerned with outliers detection, seasonalities
-and data cleaning. Below, we present the functions we use in the \emph{%
-``Outliers.R"} file.
+and data cleaning. Below, we present the functions we use in the \sf{Outliers.R} script.
 
-\begin{lstlisting}[title=\textbf{Using \emph{scores()} from the \emph{``outliers"} package.}]
-# Input: x is a vector of data, unstructured or
-#          aggregated depending on the theme.
-#        type: "z" calculates normal scores
-#               (differences between each value and
-#               the mean divided by sd)
-#       prob: the corresponding p-values are returned
-#               level choice depends on the user
+\begin{lstlisting}[title=\textbf{Using \sf{scores} from the {\sf{outliers}} package.}]
+# Inputs
+# x is a vector of data, unstructured or aggregated depending on the theme.
+# type: "z" calculates normal scores (differences between each value and the mean divided 
+# by sd)
+# prob: the corresponding p-values are returned level choice depends on the user
 od <- scores(x, type="z", prob=0.99)
 
 # identify the position of outliers
 which(od==TRUE)
 \end{lstlisting}
 
-Now, we use the built-in \emph{``stl"} to identify and extract the trend and
+Now, we use the built-in \sf{stl} to identify and extract the trend and
 seasonal component. This will lead to the cleaned series.
-\begin{lstlisting}[title=\textbf{Seasonal Decomposition of Time Series by Loess.}]
-# Input: aggx is a numeric vector of
-#        aggregated time series in weekly frequency
-# 		 First, we transform the numeric vector in
-#        a time series (ts) object correctly
-#        specifying the frequency.
+\begin{lstlisting}[title=\textbf{Seasonal decomposition of time series by Loess.}]
+# Input: aggx is a numeric vector of aggregated time series in weekly frequency
+# First, we transform the numeric vector in a time series (ts) object correctly
+# specifying the frequency.
 tsaggx <- ts(aggx, frequency=7)
 
-# Then, we use the ts object, tsaggx, as
-#       the input in the LOESS function.
-# 	s.window: can be a string "periodic"
-#       or "per" which reads the frequency
-#       from the ts transformation, otherwise
-#       it can be a user choice.
+# Then, we use the ts object, tsaggx, as the input in the LOESS function.
+# s.window: can be a string "periodic" or "per" which reads the frequency from the
+# ts transformation, otherwise it can be a user choice.
 ss <- stl(tsaggx, s.window="per")
 
 # Plot the output
 plot(ss, main="Daily Aggregation, Weekly Pattern")
 
-# Extract the seasonal component (xs)
-#   and the trend component (xt)
+# Extract the seasonal component (xs) and the trend component (xt)
 xs <- ss$time.series[,1]
 xt <- ss$time.series[,2]
 
@@ -562,68 +527,57 @@ xc <- tsaggx-xs-xt
 plot(xc, type="l", xlab="", ylab="", main="Detrended and Deseasonalised")
 \end{lstlisting}
 
-\section{Task 4}
+\section{Modelling techniques for Big Data}
 
-In Section 4, we present the codes for Ridge, Lasso, Elastic Net penalised regressions, regression trees and random forests. For the penalised regression models, we use several functions from the \emph{``glmnet"} package.
-\subsection{Penalised Regression Models. File name: \color{blue}{Ridge.R, ElasticNet.R}}
+In this section, we present the codes for Ridge, Lasso, Elastic Net penalised regressions, regression trees and random forests. For the penalised regression models, we use several functions from the \sf{glmnet} package.
 
-For the estimation of Ridge and Elastic Net regression, we use the \emph{``glmnet"} package. The lasso model is discussed later in Section 4.10. The main function is glmnet(x, y, family=".", alpha=.) and it implements penalised regression of an N by p matrix of explanatory variables x on a N-dimensional vector y.
+\subsection{Penalised Regression Models \textendash{} {\href{https://github.com/eurostat/econowcast/blob/master/model/Ridge.R}{\color{blue}{\sf{Ridge.R}}}}, {\href{https://github.com/eurostat/econowcast/blob/master/model/ElasticNet.R}{\color{blue}{\sf{ElasticNet.R}}}}}
 
-The package also performs k-fold cross validation, with the function cv.glmnet. Finally, to generate predictions the following command can be used: predict(fit.info, newdata=x.test), where fit.info is the output from the glmnet (e.g. coefficients/ confidence intervals) etc.
+For the estimation of Ridge and Elastic Net regression, we use the \sf{glmnet} package. The main function is \sf{glmnet(x, y, family=".", alpha=.)} and it implements penalised regression of an $N \times p$ matrix of explanatory variables \sf{x} on a $N$-dimensional vector \sf{y}.
 
+The package also performs k-fold cross validation, with the function \sf{cv.glmnet}. Finally, to generate predictions the following command can be used: \sf{predict(fit.info, newdata=x.test)}, where \sf{fit.info} is the output from the \sf{glmnet} (e.g. coefficients/ confidence intervals) etc.
 
-\begin{lstlisting}[title=\textbf{Ridge Penalised Regression.}]
+\begin{lstlisting}[title=\textbf{Ridge penalised regression.}]
 # Example Code Ridge
 rm(list=ls())
 install.packages("glmnet") # download and install package
 
 library (glmnet)
 
-
 #generate some artificial data
-
 set.seed(1)
-
 n <- 200  # Number of observations
-
 p <- 300  # Number of predictors included in model
 
 beta<- c(1/(1:p)^2)
- #approximately sparse model, slope coefficients small but not zero
+# approximately sparse model, slope coefficients small but not zero
 x <- matrix(rnorm(n*p), nrow=n, ncol=p)
-
 y <- x%*%beta + rnorm(n)
- #generate the dependant variable y
 
+#generate the dependant variable y
 fit.ridge <- glmnet(x, y, family="gaussian", alpha=0)
-#select ridge penalty
 
+#select ridge penalty
 nforecast=5
 xnew <- matrix(rnorm(nforecast*p), nrow= nforecast, ncol=p)
 
-predict(fit.ridge, newdata=xnew) # generate predictions based on estimated coefficients
-
+predict(fit.ridge, newdata=xnew) # predictions based on estimated coefficients
 \end{lstlisting}
 
-\begin{lstlisting}[title=\textbf{Lasso Regression.}]
-
+\begin{lstlisting}[title=\textbf{Lasso regression.}]
 # Example Code Lasso
 rm(list=ls())
 install.packages("glmnet") # download and install package
 
 library (glmnet)
 
-
 #generate some artificial data
-
 set.seed(1)
-
 n <- 200  # Number of observations
-
 p <- 300  # Number of predictors included in model
 
 beta<- matrix(c(rep(1,p/2),rep(0,p/2)))
-#sparse model, some slope coefficients are zero
+# sparse model, some slope coefficients are zero
 x <- matrix(rnorm(n*p), nrow=n, ncol=p)
 
 y <- x%*%beta + rnorm(n)
@@ -631,54 +585,46 @@ y <- x%*%beta + rnorm(n)
 
 fit.lasso <- glmnet(x, y, family="gaussian", alpha=1) #select Lasso penalty
 
-
 nforecast=5
 xnew <- matrix(rnorm(nforecast*p), nrow= nforecast, ncol=p)
 
-predict(fit.lasso, newdata=xnew) # generate predictions based on estimated coefficients
-
+predict(fit.lasso, newdata=xnew) # predictions based on estimated coefficients
 \end{lstlisting}
 
-\begin{lstlisting}[title=\textbf{Elastic Net Regression.}]
-
+\begin{lstlisting}[title=\textbf{Elastic Net regression.}]
 # Example Code Elastic Net
 rm(list=ls())
 install.packages("glmnet") # download and install package
 
 library (glmnet)
 
-
 #generate some artificial data
-
 set.seed(1)
-
 n <- 200  # Number of observations
-
 p <- 300  # Number of predictors included in model
 
 beta1<- c(1/(1:p/2)^2)
 beta<- matrix(c(beta1,rep(0,p/2)))
-#combianation between sparse and approximately sparse coefficient vector
+#combination of sparse and approximately sparse coefficient vector
 x <- matrix(rnorm(n*p), nrow=n, ncol=p)
 
-y <- x%*%beta’ + rnorm(n)
 # generate the dependant variable y
+y <- x%*%beta’ + rnorm(n)
 
-fit.elnet <- glmnet(x, y, family="gaussian", alpha=0.4) #gives 40% weight to Lasso penalty
+fit.elnet <- glmnet(x, y, family="gaussian", alpha=0.4) # 40% weight to Lasso penalty
 
 nforecast=5
 xnew <- matrix(rnorm(nforecast*p), nrow= nforecast, ncol=p)
 
 predict(fit.elnet, newdata=xnew) # generate predictions based on estimated coefficients
-
 \end{lstlisting}
 
-\subsection{Spike and Slab Regression. File name: \color{blue}{SpikeSlab.R}}
+\subsection{Spike and Slab regression \textendash{} {\href{https://github.com/eurostat/econowcast/blob/master/model/SpikeSlab.R}{\color{blue}{\sf{SpikeSlab.R}}}}}
 
-For the Spike and Slab regression model, we use the \emph{``BoomSpikeSlab"} package. The main function is \emph{``lm.spike(y~x, iter)" }where x is an N by p matrix of explanatory variables, y is an N-dimensional vector and iter is the number of Metropolis draws from the posterior distribution of the parameters.
+For the Spike and Slab regression model, we use the \sf{BoomSpikeSlab} package. 
+The main function is \sf{lm.spike(y~x, iter)} where \sf{x} is an $N \times p$ matrix of explanatory variables, \sf{y} is an $N$-dimensional vector and \sf{iter} is the number of Metropolis draws from the posterior distribution of the parameters.
 
 \begin{lstlisting}[title=\textbf{Slab and Spike regression.}]
-
 # Example Code Slab and Spike
 rm(list=ls())
 install.packages("BoomSpikeSlab") # download and install package
@@ -686,194 +632,142 @@ install.packages("BoomSpikeSlab") # download and install package
 library (BoomSpikeSlab)
 
 #generate some artificial data
-
 set.seed(1)
-
 n = 200 #sample size
-
 p = 300 # number of variables
-
 nonzerob = 3 # nubmer of variables with non-zero coefficients
-
 niter <- 1000 # nubmer of MCMC draws
-
 sigma <- .8
 
 x <- cbind(1, matrix(rnorm(n * (p-1)), nrow=n))
-
 beta <- c(rep(2,ngood),rep(0, p-nonzerob ))
-
-
 y <- rnorm(n, x %*% beta, sigma)
-
 x <- x[,-1]
 
-
-#Estimate spike and Slab regression
+# estimate spike and Slab regression
 model <- lm.spike(y ~ x, niter=niter)
 
-
-#Plots of coefficients
+# plots of coefficients
 plot.ts(model$beta)
-
 hist(model$sigma) ## should be near 8
-
 plot(model)
-
 summary(model)
 
-
-#Plot residuals
+# plot residuals
 plot(model, "residuals")
-
 
 Xnew = cbind( matrix(rnorm(n * (p-1)), nrow=n))
 
-
-#if out-of-sample forecasts are required
+# if out-of-sample forecasts are required
 yhat.slab.new = predict.lm.spike(model, newdata=Xnew) #out-of-sample prediction
-
-
 \end{lstlisting}
 
+\subsection{Regression Trees and Forests \textendash{} {\href{https://github.com/eurostat/econowcast/blob/master/model/Tree.R}{\color{blue}{\sf{Tree.R}}}},  {\href{https://github.com/eurostat/econowcast/blob/master/model/Forest.R}{\color{blue}{\sf{Forest.R}}}}}
 
-\subsection{Regression Trees and Forests. File name: \color{blue}{Tree.R, Forest.R}}
+For the regression trees and forests, we make use of four \sf{R} packages \sf{ISLS}, \sf{randomForest}, \sf{rpart} and \sf{rpart.plot}. To implement a standard regression tree with default settings: \sf{fit.trees<- rpart(y~x)}
+where \sf{x} is an $N \times p$ matrix of explanatory variables and \sf{y} is $N$-dimensional vector.
 
-For the regression trees and forests, we make use of four R packages \emph{``ISLS"}, \emph{``randomForest"}, \emph{``rpart"} and \emph{``rpart.plot"}. To implement a standard regression tree with default settings:
-\\
-\emph{``fit.trees<- rpart(y~x)"}
-\\
-where x is an N by p matrix of explanatory variables and y is N-dimensional vector.
-
-To prune a tree, the following command can be used:
-
-\begin{lstlisting}[title=\textbf{Tree Pruning}]
+To prune a tree, the following instructions can be used:
+\begin{lstlisting}[title=\textbf{Tree pruning.}]
 bestcp        <- trees$cptable[which.min(trees$cptable[,"xerror"]),"CP"]
 fit.prunedtree          <- prune(fit.trees,cp=bestcp)
 prp(fit.prunedtree)
 \end{lstlisting}
 
-The main function to optimally estimate a forest is \emph{``RFfit<- tuneRF(x, y)"}.
+The main function to optimally estimate a forest is \sf{RFfit<- tuneRF(x, y)}.
 Finally, the packages can be used to generate predictions. For regression trees, this can be achieved with the command:
-\begin{lstlisting}[title=\textbf{Main Command}]
-yhat.pt<- predict(fit.prunedtree, newdata=as.data.frame(..)).
+\begin{lstlisting}
+yhat.pt<- predict(fit.prunedtree, newdata=as.data.frame(..))
 \end{lstlisting}
-
-For forests, this can be achieved with the command:
-\begin{lstlisting}[title=\textbf{Main Command}]
-yhat.rf2<- predict(RFfit, newdata=(..)).
+\noindent while, for forests, this can be achieved with the command:
+\begin{lstlisting}
+yhat.rf2<- predict(RFfit, newdata=(..))
 \end{lstlisting}
 
 Below, we illustrate with an example.
-
 \begin{lstlisting}[title=\textbf{Standard Regression Tree}]
 rm(list=ls())
 
 # Regression Tree
 
-# download and install packages
-install.packages("ISLR") # download and install package
-install.packages("randomForest") # download and install package
-install.packages("rpart") # download and install package
-install.packages("rpart.plot") # download and install package
-
 library (ISLR)
-
 library(randomForest)
-
 library(rpart)
-
 library(rpart.plot)
 
-
 #generate some artificial data
-
 set.seed(1)
-
-
 n <- 200  # Number of observations
-
 p <- 300  # Number of predictors included in model
 
 beta<- c(10/(1:p)^2)
-
 x <- matrix(rnorm(n*p), nrow=n, ncol=p)
-
 y <- x%*%beta + rnorm(n)*4
 
-
-#Estimate Standard Regression tree
-on the atrificial data
+# estimate Standard Regression tree on the atrificial data
 fit.trees<- rpart(y~x)
 
 prp(fit.trees)
 
-
-#Estimate pruned Regression tree on the atrificial data
+# estimate pruned Regression tree on the atrificial data
 bestcp        <- trees$cptable[which.min(trees$cptable[,"xerror"]),"CP"]
-
-fit.prunedtree          <- prune(fit.trees,cp=bestcp)
+fit.prunedtree <- prune(fit.trees,cp=bestcp)
 
 prp(fit.prunedtree)
-
-
 \end{lstlisting}
 
+~\\ % go to nextpage...
 \begin{lstlisting}[title=\textbf{Random Forest}]
 rm(list=ls())
 
 # Random Forest
 
-# download and install packages
-install.packages("ISLR") # download and install package
-install.packages("randomForest") # download and install package
-install.packages("rpart") # download and install package
-install.packages("rpart.plot") # download and install package
-
 library (ISLR)
-
 library(randomForest)
-
 library(rpart)
-
 library(rpart.plot)
 
-
 #generate some artificial data
-
 set.seed(1)
-
-
 n <- 200  # Number of observations
-
 p <- 300  # Number of predictors included in model
 
 beta<- c(10/(1:p)^2)
-
 x <- matrix(rnorm(n*p), nrow=n, ncol=p)
-
 y <- x%*%beta + rnorm(n)*4
 
-
 #Estimate a Random forest on the atrificial data
-
 RFfit<- tuneRF(x, y, mtryStart=floor(sqrt(ncol(x))),stepFactor=1.5, improve=0.05, nodesize=5, ntree=2000, doBest=TRUE)
 
-
 #Find the best fir for the Random forest on the atrificial data
-
-min             <- RFfit$mtry
-
+min <- RFfit$mtry
 fit.rf2 <-randomForest(x, y, nodesize=5, mtry=min, ntree=2000)
-
-
 \end{lstlisting}
 
-\subsection{Bayesian VAR models. File name: \color{blue}{BVAR.R}}
+\subsection{Bayesian VAR models \textendash{} {\href{https://github.com/eurostat/econowcast/blob/master/model/BVAR.R}{\color{blue}{\sf{BVAR.R}}}}}
 
-We make use the of the \emph{``MSBVAR"} package for Bayesian vectorautoregressive models. The main function is szbvar, which takes the following inputs: Y is T by M matrix of time series; p is lag length; z T by N matrix of exogenous vars, can be NULL; lambda0 between 0 and 1, overall tightness; lambda1 is the standard deviation or tightness of the prior around the AR(1) parameters; lambda3 Lag decay (> 0, with 1=harmonic); lambda4 Standard deviation or tightness around the intercept > 0; lambda5 is the standard deviation or tightness around the exogneous variable coefficients; mu5 is the sum of coefficients prior weight (larger values imply difference stationarity); mu6 is dummy initial observations or drift prior (larger values allow for common trends); nu is the prior degrees of freedom, m + 1; qm is the frequency of the data for lag decay equivalence; the input prior can be of three values: 0 = Normal-Wishart prior, 1 = Normal-flat prior, 2 = flat-flat prior; posterior.fit is a logical, FALSE implies no estimation of log-posterior fit measures.
+We make use the of the \sf{MSBVAR} package for Bayesian vectorautoregressive models. The main function is  \sf{szbvar}, which takes the following inputs: 
+\begin{itemize}
+\item $Y$ is $T \times M$ matrix of time series; 
+\item $p$ is lag length;
+\item $z$ is $T \times N$ matrix of exogenous vars, can be \sf{NULL};
+\item \sf{lambda0} is the overall tightness between 0 and 1;
+\item \sf{lambda1} is the standard deviation or tightness of the prior around the AR(1) parameters;
+\item \sf{lambda3} is the lag decay (> 0, with 1=harmonic);
+\item \sf{lambda4} is the standard deviation or tightness around the intercept > 0;
+\item \sf{lambda5} is the standard deviation or tightness around the exogneous variable coefficients;
+\item \sf{mu5} is the sum of coefficients prior weight (larger values imply difference stationarity);
+\item \sf{mu6} is dummy initial observations or drift prior (larger values allow for common trends);
+\item \sf{nu} is the prior degrees of freedom, $m + 1$;
+\item \sf{qm} is the frequency of the data for lag decay equivalence;
+\item \sf{prior} can be of three values: 0 = Normal-Wishart prior, 1 = Normal-flat prior, 2 = flat-flat prior;
+\item \sf{posterior.fit} is a logical, \sf{FALSE} implies no estimation of log-posterior fit measures.
+\end{itemize}
 The package can be used to generate out-of-sample forecasts, using the function forecast, for example:
-forecasts <- forecast(fit.bvar, nsteps)) with nsteps the numbers of horizons for the out-of-sample forecasts.
+\begin{lstlisting}
+forecasts <- forecast(fit.bvar, nsteps))
+\end{lstlisting}
+ \noindent with \sf{nsteps} the numbers of horizons for the out-of-sample forecasts.
 
 \begin{lstlisting}[title=\textbf{Bayesian VAR}]
 rm(list=ls())
@@ -883,79 +777,54 @@ install.packages("MSBVAR") # download and install package
 
 library (MSBVAR)
 
-
 #generate some artificial data
-
 set.seed(1)
-
 n = 200 #sample size
-
 p = 10 # number of variables
-
 X0 = rep(0,p)
-
 beta = rep(0.5,p)
-
 B=diag(beta)
-
 y=matrix(0,nrow=p,ncol=n)
-
 for (i in 1:n) {
-
-e = rnorm(p)
-
-y[,i]=B%*%X0+e
-
-X0=y[,i]
-
+	e = rnorm(p)
+	y[,i]=B%*%X0+e
+	X0=y[,i]
 }
 
-
 # Reference prior model -- Normal-IW prior pdf
-
-Bvar.Model <- szbvar(y, p=6, z=NULL, lambda0=0.6,
-
-lambda1=0.1, lambda3=2, lambda4=0.5,
-
-lambda5=0, mu5=0, mu6=0,
-
-nu=ncol(KEDS)+1, qm=4, prior=0,
-
-posterior.fit=F)
-
+Bvar.Model <- szbvar(y, p=6, z=NULL, lambda0=0.6, lambda1=0.1, lambda3=2, lambda4=0.5, lambda5=0, mu5=0, mu6=0, nu=ncol(KEDS)+1, qm=4, prior=0, posterior.fit=F)
 
 # Forecast -- this gives back the sample PLUS the forecasts.
 forecasts <- forecast(Bvar.Model, nsteps=10,burnin=3000, gibbs=5000, exog=NULL)
 
-
 # Conditional forecasts
-
 conditional.forcs.ref <- hc.forecast(Bvar.Model, yhat, nsteps,
-
 burnin=3000, gibbs=5000, exog=NULL)
-
 \end{lstlisting}
 
-\section{Tasks 5 $-$ 8}
+\section{Modelling strategies for nowcasting/early estimates purposes}
 
-In Tasks 5, 6 and 7 we divide the general codes in three parts: (i) data
-manipulation, (ii) nowcasting and (iii) post-processing of results.
-
+The codes presented in this section address the following issues: 
+\begin{itemize}
+\item[(i)] data manipulation,
+\item[(ii)] nowcasting, and 
+\item[(iii)] post-processing of results.
+\end{itemize}
 The first part refers to all codes we used to manipulate the downloaded
 data. This part is ``data-specific" and it applies to data downloaded from
 the same sources as in these tasks. If a researchers uses Bloomberg,
 Reuters, Macrobond or other data collection software, the original data is
 different and cannot be used as input in these functions. Therefore, we do
-not discuss them here. The following sections, we take it as granted that the user
+not discuss them here. In the following section, we take as granted that the user
 has already downloaded and cleaned the data.
 
-\subsection{Weekly Google Trends. File name: \color{blue}{Weekly-Google.R}}
+\subsection{Weekly Google Trends \textendash{}  {\href{https://github.com/eurostat/econowcast/blob/master/nowcast/Weekly-Google.R}{\color{blue}{\sf{Weekly-Google.R}}}}}
 
-As mentioned in a previous section, Google Trends are downloaded in monthly
+As mentioned in a previous section, \emph{Google Trends} are downloaded in monthly
 frequency. We have developed a function which loads Google Trends over
 smaller time frames at weekly frequency, and then scales the data in order
-to obtain the weekly Google Trends for the overall period. The function uses
-the main function from \emph{``gtrendsR"} package.
+to obtain the weekly \emph{Google Trends} for the overall period. The function uses
+the main function from \sf{gtrendsR} package.
 
 \begin{lstlisting}[title=\textbf{Weekly Google Trends.}]
 # Set dates for all data
@@ -979,14 +848,13 @@ c1 <- weekly.GOOGLE(kwd, reg, cct, stp, dfrom, dto)
 
 \subsection{Transformation}
 
-In ``averaging.R", ..., we transform the final nowcast/forecast estimates to
+We transform the final nowcast/forecast estimates to
 levels according to the nature of the series. In order to avoid repetition,
-we describe the code here.
+the code is described here.
 
-\begin{lstlisting}[title=\textbf{From Change to Levels.}]
+\begin{lstlisting}[title=\textbf{From change to levels.}]
 # YTRANSF: if 3, we translate from growth to levels
 #		   if 2, we translate from 1-st diff to levels
-#
 #	zlast: is the last observed value for the dependent variable
 #	zboot: are the bootstrap estimate for densities
 # 	zave: (or different name) is the final estimate in levels.
@@ -1002,14 +870,15 @@ if(YTRANSF==2){
 }
 \end{lstlisting}
 
-\subsection{Averaging. File name: \color{blue}{averaging.R}}
+\subsection{Averaging \textendash{} {\href{https://github.com/eurostat/econowcast/blob/master/nowcast/averaging.R}{\color{blue}{\sf{averaging.R}}}}}
 
-We calculate the average value of the last observations and also use bootstrap
+We calculate the average value of the last observations and also use Bootstrap
 to calculate the corresponding density estimates.
 
-\begin{lstlisting}[title=\textbf{Averaging and Bootstrap for Density.}]
-# Input: "z" is the dependent variable, vector of data
-#			zp: window length, e.g. zp=4, then we have the 4-period MA.
+\begin{lstlisting}[title=\textbf{Averaging and Bootstrap for density.}]
+# Input: 
+# z is the dependent variable, vector of data
+# zp: window length, e.g. zp=4, then we have the 4-period MA.
 zave <- mean(z[(NROW(z)-zp+1):NROW(z),])
 
 # Bootstrap for density estimation
@@ -1020,18 +889,20 @@ boots <- matrix(NA, NROW(z), B)
 for(j in 1:B){
   boots[,j] <- MBB(z, b) # MBB: Moving Block Bootstrap
 }
+
 # Calculate the mean value for the same zp
 zboot <- colMeans(boots[(NROW(boots)-zp+1):NROW(boots),])
 \end{lstlisting}
 
-\subsection{Naive Estimate. File name: \color{blue}{naive.R}}
+\subsection{Naive Estimate \textendash{} {\href{https://github.com/eurostat/econowcast/blob/master/nowcast/naive.R}{\color{blue}{\sf{naive.R}}}}}
 
 We calculate the naive forecast and also use bootstrap to calculate the
 corresponding density estimates.
 
-\begin{lstlisting}[title=\textbf{Naive Forecasting.}]
-# Input: "z" is the dependent variable, vector of data
-# 		here we extract the last observed value
+\begin{lstlisting}[title=\textbf{Naive forecasting.}]
+# Input: 
+# z is the dependent variable, vector of data
+# here we extract the last observed value
 zf <- z[NROW(z)]
 
 # Bootstrap for density estimation
@@ -1042,21 +913,21 @@ boots <- matrix(NA, NROW(z), B)
 for(j in 1:B){
   boots[,j] <- MBB(z, b)
 }
+
 # Extract the corresponding naives
 zboot <- boots[NROW(boots),]
 \end{lstlisting}
 
-\subsection{ARIMA. File name: \color{blue}{ar.R}}
+\subsection{ARIMA \textendash{} {\href{https://github.com/eurostat/econowcast/blob/master/nowcast/ar.R}{\color{blue}{\sf{ar.R}}}}}
 
-We calculate various ARIMA model-based forecasts using the \emph{``forecast"}
-package.
+We calculate various ARIMA model-based forecasts using the \sf{forecast} package.
 
-\begin{lstlisting}[title=\textbf{ARIMA Forecasting.}]
+\begin{lstlisting}[title=\textbf{ARIMA forecasting.}]
 # If an AR order is set to zero, we use AIC
 if(arp==0){ arp <- NROW(ar.ols(z, aic=TRUE)$ar) }
 
 # Estimate ARIMA using
-#	z: the vector of the observed dependent variable
+# z: the vector of the observed dependent variable
 # order: ARIMA order
 # method: conditional sum of squares
 fit <- Arima(z,order=c(arp,0,0), method=c("CSS"))
@@ -1066,21 +937,20 @@ fout <- NULL
 try(fout <- forecast(fit,h=1, bootstrap=TRUE, npaths=B, level=seq(51,99,1)), silent=TRUE)
 
 # Put all percentiles together in the correct order
-zout <- c(fout$mean, rev(as.numeric(fout$lower))[1], rev(fout$lower),
-          fout$mean, fout$upper, as.numeric(fout$upper)[49])
+zout <- c(fout$mean, rev(as.numeric(fout$lower))[1], rev(fout$lower), fout$mean, fout$upper, as.numeric(fout$upper)[49])
 \end{lstlisting}
 
-\subsection{Dynamic Factor Analysis. File name: \color{blue}{dfa.R}}
+\subsection{Dynamic Factor Analysis \textendash{} {\href{https://github.com/eurostat/econowcast/blob/master/nowcast/dfa.R}{\color{blue}{\sf{dfa.R}}}}}
 
-We calculate forecasts/nowcasts based on Dynamic Factor Analysis. Codes are
-adapted versions of Giannone and Reichlin original MATLAB programs.
+We calculate forecasts/nowcasts based on Dynamic Factor Analysis. 
+Codes are adapted versions of original Giannone and Reichlin's \sf{Matlab} programs.
 
-\begin{lstlisting}[title=\textbf{Dynamic Factor Analysis Forecasting.}]
+\begin{lstlisting}[title=\textbf{Dynamic Factor Analysis forecasting.}]
 # Extract factors using:
-#	XX: matrix of observed regressors
-#	q: dynamic rank
-#   r: static rank (r>=q)
-#   p: ar order of the state vector
+# XX: matrix of observed regressors
+# q: dynamic rank
+# r: static rank (r>=q)
+# p: ar order of the state vector
 fac.out <- FactorExtraction(XX,q=fq,r=fr,p=fp)
 Fac <- fac.out$Fac
 rownames(Fac) <- rownames(XX)
@@ -1089,12 +959,12 @@ rownames(Fac) <- rownames(XX)
 z <- YY; f <- Fac; vlag <- 0; source(".../linreg.R")
 \end{lstlisting}
 
-\subsection{Factor Linear Regression. File name: \color{blue}{Flinreg.R}}
+\subsection{Factor Linear Regression \textendash{} {\href{https://github.com/eurostat/econowcast/blob/master/nowcast/Flinreg.R}{\color{blue}{\sf{Flinreg.R}}}}}
 
 We calculate forecasts/nowcasts based on linear regression using factors which
 come from standardised matrices.
 
-\begin{lstlisting}[title=\textbf{Factor Linear Regression.}]
+\begin{lstlisting}[title=\textbf{Factor Linear regression.}]
 # jj: step-ahead
 # z: target, vector
 # f: factor which comes from standardised data
@@ -1110,12 +980,12 @@ b <- out$coefficients;
 outf <- ((f[NROW(f),]%*%b[2:NROW(b)]) + b[1])*ysd+ymu
 \end{lstlisting}
 
-\subsection{Partial Least Squares. File name: \color{blue}{pls.R}}
+\subsection{Partial Least Squares \textendash{} {\href{https://github.com/eurostat/econowcast/blob/master/nowcast/pls.R}{\color{blue}{\sf{pls.R}}}}}
 
 We calculate forecasts/nowcasts based on partial least squares methodology. We
-are using the \emph{``plsr"} package.
+are using the \sf{plsr} package.
 
-\begin{lstlisting}[title=\textbf{Factor Linear Regression.}]
+\begin{lstlisting}[title=\textbf{Factor Linear regression.}]
 # Lag the matrix of Regressors if necessary
 # vlag: lag order
 # XX : matrix, panel of regressors
@@ -1123,7 +993,6 @@ are using the \emph{``plsr"} package.
 vlag <- 1
 if(vlag>0){
   XX <- cbind(lagf(YY, vlag)[,2:(vlag+1)], XX)
-
   XX <- as.matrix(XX[(vlag+1):NROW(XX),])
   YY <- as.matrix(YY[(vlag+1):NROW(YY),])
 }
@@ -1140,13 +1009,13 @@ f <- as.matrix(pp$scores)
 z <- as.matrix(yyin)
 
 # Use Factor linear regression
-source(".../Flinreg.R")
+source("Flinreg.R")
 \end{lstlisting}
 
-\subsection{Sparse Principal Components. File name: \color{blue}{spc.R}}
+\subsection{Sparse Principal Components \textendash{} {\href{https://github.com/eurostat/econowcast/blob/master/nowcast/spc.R}{\color{blue}{\sf{spc.R}}}}}
 
 We calculate forecasts/nowcasts based on sparse principal components
-methodology. We are using the \emph{``nsprcomp"} package.
+methodology. We are using the \sf{nsprcomp} package.
 
 \begin{lstlisting}[title=\textbf{Sparse Principal Components.}]
 # jj: step-ahead
@@ -1178,12 +1047,12 @@ z <- as.matrix(yyin)
 source(".../Flinreg.R")
 \end{lstlisting}
 
-\subsection{Sparse Regression. File name: \color{blue}{sparse.R}}
+\subsection{Sparse Regression \textendash{} {\href{https://github.com/eurostat/econowcast/blob/master/nowcast/sparse.R}{\color{blue}{\sf{sparse.R}}}}}
 
 We calculate forecasts/nowcasts based on sparse regression methodology. We are
-using the \emph{``glmnet"} package.
+using the \sf{glmnet} package.
 
-\begin{lstlisting}[title=\textbf{Sparse Regression.}]
+\begin{lstlisting}[title=\textbf{Sparse regression.}]
 # jj: step-ahead
 # z: target, vector
 # f: factor which comes from standardised data
@@ -1192,7 +1061,6 @@ using the \emph{``glmnet"} package.
 vlag <- 1
 if(vlag>0){
   XX <- cbind(lagf(YY, vlag)[,2:(vlag+1)], XX)
-
   XX <- as.matrix(XX[(vlag+1):NROW(XX),])
   YY <- as.matrix(YY[(vlag+1):NROW(YY),])
 }
@@ -1220,10 +1088,10 @@ spseq <- qnorm(seq(0.51, 0.99, 0.01))*sigmah
 zout <- c(outf, outf-rev(spseq)[1], outf-rev(spseq), outf, outf+spseq, outf+spseq[NROW(spseq)])
 \end{lstlisting}
 
-\subsection{Spike and Slab. File name: \color{blue}{sparse.R}}
+\subsection{Spike and Slab \textendash{} {\href{https://github.com/eurostat/econowcast/blob/master/nowcast/spike.R}{\color{blue}{\sf{spike.R}}}}}
 
 We calculate forecasts/nowcasts based on sparse regression methodology. We are
-using the \emph{``BoomSpikeSlab"} package.
+using the \sf{BoomSpikeSlab} package.
 
 \begin{lstlisting}[title=\textbf{Spike and Slab Regression.}]
 # jj: step-ahead
@@ -1235,7 +1103,6 @@ lag <- 1
 if(vlag>0){
   # XX <- lagmv(XX, vlag)   # no because of small T dimension
   XX <- cbind(lagf(YY, vlag)[,2:(vlag+1)], XX)
-
   XX <- as.matrix(XX[(vlag+1):NROW(XX),])
   YY <- as.matrix(YY[(vlag+1):NROW(YY),])
 }
@@ -1251,15 +1118,18 @@ f <-xxin
 jj <- 1
 zreg <- as.matrix(z[(jj+1):NROW(z),])
 freg <- as.matrix(f[1:(NROW(f)-jj),])
+
 # Spike and Slab
 # niter: The number of MCMC iterations to run
 # ping: output printing parameter
 out <- lm.spike(zreg ~ freg, niter=niters, ping=B)
+
 # keep the last B rounds
 b <- out$beta
 b <- b[(NROW(b)-B+1):NROW(b),]
 bf <- colMeans(b)
 outf <- ((f[NROW(f),]%*%bf[2:NROW(bf)]) + bf[1])*ysd+ymu
+
 #Calculate percentiles
 sigmah <- sd((zreg-freg%*%bf[2:NROW(bf)]-bf[1])*ysd+ymu)
 spseq <- qnorm(seq(0.51, 0.99, 0.01))*sigmah
@@ -1268,8 +1138,7 @@ zout <- c(outf, outf-rev(spseq)[1], outf-rev(spseq), outf, outf+spseq, outf+spse
 
 \subsection{Evaluation Statistics}
 
-We calculate various evaluation statistics. Check the main files for more
-details.
+We calculate various evaluation statistics. Check the main files for more details.
 
 \begin{lstlisting}[title=\textbf{Mean Absolute Error.}]
 # err: matrix with errors of various methods
