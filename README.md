@@ -38,7 +38,7 @@ Further (narrative) description of the various functions/scripts is also provide
 * G.Kapetanios, M.Marcellino, F.Papailias (2017): 
 **Guidance and recommendations on the use of Big data for macroeconomic nowcasting** in
 [**Handbook on Rapid Estimates**](http://ec.europa.eu/eurostat/documents/3859598/8555708/KS-GQ-17-008-EN-N.pdf), Chapter 17,
-_Publications Office of the European Union_, doi:[10.2785/488740](http://dx.doi.org/10.2785/488740). 
+_Publications Office of the European Union_, doi:[10.2785/4887400](http://dx.doi.org/10.2785/4887400).  
 
 * G.Kapetanios, M.Marcellino, F.Papailias (2017): 
 [**Filtering techniques for big data and big data based uncertainty indexes**](http://ec.europa.eu/eurostat/documents/3888793/8440791/KS-TC-17-007-EN-N.pdf),
