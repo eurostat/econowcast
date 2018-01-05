@@ -46,8 +46,8 @@ investigated.
 The results presented in the various publications reffered [below](#References) can be reproduced.
 For that purpose, the necessary raw (as well as the output data) are made available to the user in the 
 [**_data/_**](data) folder.
-Further description of the various functions/scripts is also provided in this 
-[document](docs/econowcast-code_description.pdf).
+Further (narrative) description of the various functions/scripts is also provided in this  
+[document](docs/econowcast-code_description.pdf), located in the [**_docs/_**](docs) folder.
 
 **<a name="References"></a>References** 
 
