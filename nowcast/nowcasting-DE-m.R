@@ -115,12 +115,12 @@ foredatew <- which.min(abs(dwF-(foredate+cT[2,target])))
 foredatew <- dwF[(foredatew-6):foredatew][1:6]
 
   # for5w
-  j <- 1; cur.date <- foredatew[j]; source("E:/Dropbox/BD2/Tasks567/progs/for5w.R")
-  j <- 2; cur.date <- foredatew[j]; source("E:/Dropbox/BD2/Tasks567/progs/for4w.R")
-  j <- 3; cur.date <- foredatew[j]; source("E:/Dropbox/BD2/Tasks567/progs/for3w.R")
-  j <- 4; cur.date <- foredatew[j]; source("E:/Dropbox/BD2/Tasks567/progs/for2w.R")
-  j <- 5; cur.date <- foredatew[j]; source("E:/Dropbox/BD2/Tasks567/progs/for1w.R")
-  j <- 6; cur.date <- foredatew[j]; source("E:/Dropbox/BD2/Tasks567/progs/for0w.R")
+  j <- 1; cur.date <- foredatew[j]; source("./for5w.R")
+  j <- 2; cur.date <- foredatew[j]; source("./for4w.R")
+  j <- 3; cur.date <- foredatew[j]; source("./for3w.R")
+  j <- 4; cur.date <- foredatew[j]; source("./for2w.R")
+  j <- 5; cur.date <- foredatew[j]; source("./for1w.R")
+  j <- 6; cur.date <- foredatew[j]; source("./for0w.R")
   cat("now done ", i, " of ", NROW(tardates), "\n")
 }
   
@@ -165,4 +165,4 @@ lines(Wd, for0p[,j], col="blue")
 
 
 beep(10)
-save.image(paste("out/MAINOUT-",target, ".Rdata", sep=""))
+save.image(paste("output/MAINOUT-",target, ".Rdata", sep=""))
