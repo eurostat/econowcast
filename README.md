@@ -31,7 +31,7 @@ The source code is organised in 4 distinct folders:
 
 The results presented in the various publications referred to [below](#References) can be reproduced.
 For that purpose, the necessary raw (as well as the output data) are made available to the user in the [**_data/_**](data) folder.
-Further (narrative) description of the various functions/scripts is also provided in this [document](docs/econowcast-code_description.pdf), located in the [**_docs/_**](docs) folder.
+Further (narrative) description of the various functions/scripts is also provided in this [document](docs/econowcast-code_description.pdf), located in the [**_docs/_**](docs) folder, including the [evaluation of the nowcasting/flash estimation techniques](docs/Nowcasting_Flash_estimation_evaluation) based on a big set of indicators.
 
 **<a name="References"></a>References** 
 
