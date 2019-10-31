@@ -9,7 +9,7 @@ Experimental tools for Big Data econometrics nowcasting and early estimates.
 The code source files provided herein will enable you to reproduce the experiments on Big Data econometrics nowcasting and early estimates presented in _Eurostat_ [**Handbook on Rapid Estimates**](https://ec.europa.eu/eurostat/documents/3859598/8555708/KS-GQ-17-008-EN-N.pdf) (_cite this source code or the reference's doi: [10.2785/488740](http://dx.doi.org/10.2785/488740)_). Further details are also available in the other associated working papers (see Kapetanios _et al._'s publications [below](#References)).
 
 <table align="center">
-    <tr>     <td  rowspan="4" align="center" width="140px"> <img src="docs/handbook_front_cover.png"></img></td>
+    <tr>     <td  rowspan="4" align="center" width="140px"> <a href="https://ec.europa.eu/eurostat/documents/3859598/8555708/KS-GQ-17-008-EN-N.pdf"><img src="docs/handbook_front_cover.png"></img></a></td>
 <td align="left"><i>authors</i></td> <td align="left"> <a href="mailto:fotis.papailias@quantf.com">F.Papailias</a>, 
 	<a href="mailto:kapetaniosgeorge@gmail.com">G.Kapetanios</a>, <a href="mailto:massimiliano.marcellino@unibocconi.it">M.Marcellino</a>, 
 	and <a href="mailto:katerina.petrova@st-andrews.ac.uk">K.Petrova</a></td> </tr> 
