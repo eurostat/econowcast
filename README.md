@@ -6,21 +6,13 @@ Experimental tools for Big Data econometrics nowcasting and early estimates.
 
 **About**
 
-<table align="center" style="display:none;">
-    <tr style="display:none;"> <td align="center" style="display:none;">
-	    <img src="docs/handbook_front_cover.png" style="height:120%;"></img>
-	    </td> <td align="left" style="display:none;">
-	    The code source files provided herein will enable you to reproduce the experiments 
-on Big Data econometrics nowcasting and early estimates presented in _Eurostat_ [**Handbook on Rapid Estimates**](https://ec.europa.eu/eurostat/documents/3859598/8555708/KS-GQ-17-008-EN-N.pdf)
-(_cite this source code or the reference's doi: [10.2785/488740](http://dx.doi.org/10.2785/488740)_).
-Further details are also available in the other associated working papers (see 
-Kapetanios _et al._'s publications [below](#References)).</td> </tr> 
-</table>
+The code source files provided herein will enable you to reproduce the experiments on Big Data econometrics nowcasting and early estimates presented in _Eurostat_ [**Handbook on Rapid Estimates**](https://ec.europa.eu/eurostat/documents/3859598/8555708/KS-GQ-17-008-EN-N.pdf) (_cite this source code or the reference's doi: [10.2785/488740](http://dx.doi.org/10.2785/488740)_). Further details are also available in the other associated working papers (see Kapetanios _et al._'s publications [below](#References)).
 
 <table align="center">
-    <tr> <td align="left"><i>authors</i></td> <td align="left"> <a href="mailto:fotis.papailias@quantf.com">F.Papailias</a>, 
+    <tr>     <td  rowspan="4" align="center" width="140px"> <img src="docs/handbook_front_cover.png"></img></td>
+<td align="left"><i>authors</i></td> <td align="left"> <a href="mailto:fotis.papailias@quantf.com">F.Papailias</a>, 
 	<a href="mailto:kapetaniosgeorge@gmail.com">G.Kapetanios</a>, <a href="mailto:massimiliano.marcellino@unibocconi.it">M.Marcellino</a>, 
-	<a href="mailto:katerina.petrova@st-andrews.ac.uk">K.Petrova</a></td> </tr> 
+	and <a href="mailto:katerina.petrova@st-andrews.ac.uk">K.Petrova</a></td> </tr> 
     <tr> <td align="left"><i>version</i></td> <td align="left">1.0</td> </tr> 
     <tr> <td align="left"><i>since</i></td> <td align="left">2017</td> </tr> 
     <tr> <td align="left"><i>license</i></td> <td align="left"><a href="https://joinup.ec.europa.eu/sites/default/files/eupl1.1.-licence-en_0.pdfEUPL">EUPL</a> <i>(cite the source code or the reference above!)</i></td> </tr> 
