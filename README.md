@@ -32,7 +32,7 @@ Further (narrative) description of the various functions/scripts is also provide
 
 **<a name="References"></a>References** 
 
-* Marcellino M.G., Papailias F., Mazzi G.L., Kapetanios G., and Buono D. (2018): **Big Data econometrics: Now casting and early estimates**, no. 2018-82, BAFFI CAREFIN Centre Research, ssrn:[3206554](https://ssrn.com/abstract=3206554).
+* Marcellino M.G., Papailias F., Mazzi G.L., Kapetanios G. and Buono D. (2018): **Big Data econometrics: Now casting and early estimates**, no. 2018-82, BAFFI CAREFIN Centre Research, ssrn:[3206554](https://ssrn.com/abstract=3206554).
 
 * Kapetanios G., Marcellino M. and Papailias F. (2017): 
 **Guidance and recommendations on the use of Big data for macroeconomic nowcasting** in
