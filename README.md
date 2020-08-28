@@ -11,7 +11,7 @@ The code source files provided herein will enable you to reproduce the experimen
 <table align="center">
     <tr>     <td  rowspan="4" align="center" width="140px"> <a href="https://ec.europa.eu/eurostat/documents/3859598/8555708/KS-GQ-17-008-EN-N.pdf"><img src="docs/handbook_front_cover.png"></img></a></td>
 <td align="left"><i>authors</i></td> <td align="left"> <a href="mailto:fotis.papailias@quantf.com">Papailias F.</a>, 
-	<a href="mailto:kapetaniosgeorge@gmail.com">Kapetanios G.</a>, <a href="mailto:massimiliano.marcellino@unibocconi.it">Marcellino M.</a>, 
+	<a href="mailto:kapetaniosgeorge@gmail.com">Kapetanios G.</a>, <a href="mailto:massimiliano.marcellino@unibocconi.it">Marcellino M.</a>
 	and <a href="mailto:katerina.petrova@st-andrews.ac.uk">Petrova K.</a></td> </tr> 
     <tr> <td align="left"><i>version</i></td> <td align="left">1.0</td> </tr> 
     <tr> <td align="left"><i>status</i></td> <td align="left">since 2017 &ndash; <b>closed</b></td> </tr> 
