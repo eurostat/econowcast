@@ -4,19 +4,7 @@ econowcast
 Experimental tools for Big Data econometrics nowcasting and early estimates.
 ---
 
-**About**
-
 The code source files provided herein will enable you to reproduce the experiments on Big Data econometrics nowcasting and early estimates presented in _Eurostat_ [**Handbook on Rapid Estimates**](https://ec.europa.eu/eurostat/web/products-manuals-and-guidelines/-/KS-GQ-17-008) (_cite this source code or the reference's doi: [10.2785/488740](http://dx.doi.org/10.2785/488740)_). Further details are also available in the other associated working papers (see Kapetanios _et al._'s publications [below](#References)).
-
-<table align="center">
-    <tr>     <td  rowspan="4" align="center" width="140px"> <a href="https://ec.europa.eu/eurostat/documents/3859598/8555708/KS-GQ-17-008-EN-N.pdf"><img src="docs/handbook_front_cover.png"></img></a></td>
-<td align="left"><i>authors</i></td> <td align="left"> <a href="mailto:fotis.papailias@quantf.com">Papailias F.</a>, 
-	<a href="mailto:kapetaniosgeorge@gmail.com">Kapetanios G.</a>, <a href="mailto:massimiliano.marcellino@unibocconi.it">Marcellino M.</a>
-	and <a href="mailto:katerina.petrova@st-andrews.ac.uk">Petrova K.</a></td> </tr> 
-    <tr> <td align="left"><i>version</i></td> <td align="left">1.0</td> </tr> 
-    <tr> <td align="left"><i>status</i></td> <td align="left">since 2017 &ndash; <b>closed</b></td> </tr> 
-    <tr> <td align="left"><i>license</i></td> <td align="left"><a href="https://joinup.ec.europa.eu/sites/default/files/eupl1.1.-licence-en_0.pdfEUPL">EUPL</a> <i>(cite the source code or the reference above!)</i></td> </tr> 
-</table>
 
 **Description**
 
@@ -29,6 +17,18 @@ The source code is organised in 4 distinct folders:
 The results presented in the various publications referred to [below](#References) can be reproduced.
 For that purpose, the necessary raw (as well as the output data) are made available to the user in the [**_data/_**](data) folder.
 Further (narrative) description of the various functions/scripts is also provided in this [document](docs/econowcast-code_description.pdf), located in the [**_docs/_**](docs) folder, including the [evaluation of the nowcasting/flash estimation techniques](docs/Nowcasting_Flash_estimation_evaluation) based on a big set of indicators.
+
+**About**
+
+<table align="center">
+    <tr>     <td  rowspan="4" align="center" width="140px"> <a href="https://ec.europa.eu/eurostat/documents/3859598/8555708/KS-GQ-17-008-EN-N.pdf"><img src="docs/handbook_front_cover.png"></img></a></td>
+<td align="left"><i>authors</i></td> <td align="left"> <a href="mailto:fotis.papailias@quantf.com">Papailias F.</a>, 
+	<a href="mailto:kapetaniosgeorge@gmail.com">Kapetanios G.</a>, <a href="mailto:massimiliano.marcellino@unibocconi.it">Marcellino M.</a>
+	and <a href="mailto:katerina.petrova@st-andrews.ac.uk">Petrova K.</a></td> </tr> 
+    <tr> <td align="left"><i>version</i></td> <td align="left">1.0</td> </tr> 
+    <tr> <td align="left"><i>status</i></td> <td align="left">since 2017 &ndash; <b>closed</b></td> </tr> 
+    <tr> <td align="left"><i>license</i></td> <td align="left"><a href="https://joinup.ec.europa.eu/sites/default/files/eupl1.1.-licence-en_0.pdfEUPL">EUPL</a> <i>(cite the source code or the reference above!)</i></td> </tr> 
+</table>
 
 **<a name="References"></a>References** 
 
