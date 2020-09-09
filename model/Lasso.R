@@ -11,7 +11,8 @@ p <- 300  # Number of predictors included in model
 beta<- matrix(c(rep(1,p/2),rep(0,p/2)))
  #sparse model, some slope coefficients are zero
 x <- matrix(rnorm(n*p), nrow=n, ncol=p)
-y <- x%*%beta + rnorm(n)# generate the dependant variable y
+y <- x%*%beta + rnorm(n) 
+# generate the dependant variable y
 
 fit.lasso <- glmnet(x, y, family="gaussian", alpha=1) #select Lasso penalty
 
