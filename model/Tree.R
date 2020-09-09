@@ -21,11 +21,12 @@ beta<- c(10/(1:p)^2)
 x <- matrix(rnorm(n*p), nrow=n, ncol=p)
 y <- x%*%beta + rnorm(n)*4
 
-#Estimate Standard Regression treeon the atrificial data
+#Estimate Standard Regression tree
+on the atrificial data
 fit.trees<- rpart(y~x)
 prp(fit.trees)
 
-#Estimate pruned Regression tree on the atrificial data 
+#Estimate pruned Regression tree on the atrificial data
 bestcp        <- trees$cptable[which.min(trees$cptable[,"xerror"]),"CP"]
 fit.prunedtree          <- prune(fit.trees,cp=bestcp)
 prp(fit.prunedtree)
