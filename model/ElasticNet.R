@@ -12,7 +12,8 @@ beta1<- c(1/(1:p/2)^2)
 beta<- matrix(c(beta1,rep(0,p/2)))
 #combianation between sparse and approximately sparse coefficient vector
 x <- matrix(rnorm(n*p), nrow=n, ncol=p)
-y <- x%*%beta’ + rnorm(n)# generate the dependant variable y
+y <- x%*%beta’ + rnorm(n) 
+# generate the dependant variable y
 
 fit.elnet <- glmnet(x, y, family="gaussian", alpha=0.4) #gives 40% weight to Lasso penalty
 
